@@ -36,7 +36,6 @@ public class Tree
                 while(aux!=null&&flag)
                 {
                     aux = aux.getlNo(n);
-                    System.out.println(auxPala.charAt(0));
                     int i = 0;
                     while (i < 26 && aux.getlChar(i) == '.')
                         i++;
