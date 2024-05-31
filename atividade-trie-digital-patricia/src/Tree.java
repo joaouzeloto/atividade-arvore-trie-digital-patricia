@@ -113,44 +113,103 @@ public class Tree
         }
     }
 
-    public void exibir(No raiz)
-    {
-        if (raiz.getPalavra()!=null)
-            System.out.println(raiz.getPalavra());
-        for (int i=0;i<26;i++)
-        {
-            if(raiz.getlNo(i)!=null)
-                exibir(raiz.getlNo(i));
-        }
-
-    }
-
-    public void exibir()
-    {
-        exibir(raiz);
-    }
-
     public void mostrarInformacoes()
     {
-        No aux = raiz;
-        FilaNo f1 = new FilaNo(), f2 = new FilaNo(),f3 = new FilaNo();
-        f1.inserir(aux);
-        while (!f1.vazia())
+        if(raiz!=null)
         {
+            No aux = raiz;
+            FilaNo f1 = new FilaNo(), f2 = new FilaNo(),f3 = new FilaNo();
+            f1.inserir(aux);
             while (!f1.vazia())
             {
-                aux = f1.retirar().getNo();
-                f2.inserir(aux);
-                f3.inserir(aux);
+                while (!f1.vazia())
+                {
+                    aux = f1.retirar().getNo();
+                    f2.inserir(aux);
+                    f3.inserir(aux);
+                }
+                while (!f3.vazia())
+                {
+                    aux = f3.retirar().getNo();
+                    for(int i=0;i<26;i++)
+                        if(aux.getlNo(i)!=null)
+                            f1.inserir(aux.getlNo(i));
+                }
             }
-            while (!f3.vazia())
+
+            while(!f2.vazia())
             {
-                aux = f3.retirar().getNo();
-                for(int i=0;i<26;i++)
-                    if(aux.getlNo(i)!=null)
-                        f2.inserir(aux.getlNo(i));
+                aux = f2.retirar().getNo();
+                for(int i =0;i<26;i++)
+                    if(aux.getlChar(i)!='.')
+                        System.out.print(aux.getlChar(i)+" ");
+                if(aux.getPalavra()!=null)
+                    System.out.print("palavra: "+ aux.getPalavra());
+                System.out.println();
             }
         }
     }
 
+    public No procuraPalavra(String palavra)
+    {
+        if(raiz!=null)
+        {
+            No aux = raiz;
+            char letra;
+            int i = 0;
+            boolean flag = true;
+            while(flag)
+            {
+                if(aux.getPalavra()!=null&&aux.getPalavra().equals(palavra.toLowerCase()))
+                    flag = false;
+                else
+                {
+                    letra = palavra.charAt(aux.getIndice()-1);
+                    if(aux.getlNo(letra-'a')!=null)
+                        aux = aux.getlNo(letra-'a');
+                    else
+                        flag = false;
+                }
+
+            }
+            if(aux.getPalavra()!=null&&aux.getPalavra().equals(palavra.toLowerCase()))
+                return aux;
+
+        }
+        return null;
+    }
+
+
+    public void exbirPalavras()
+    {
+        if(raiz!=null)
+        {
+            No aux = raiz;
+            FilaNo f1 = new FilaNo(), f2 = new FilaNo(),f3 = new FilaNo();
+            f1.inserir(aux);
+            while (!f1.vazia())
+            {
+                while (!f1.vazia())
+                {
+                    aux = f1.retirar().getNo();
+                    f2.inserir(aux);
+                    f3.inserir(aux);
+                }
+                while (!f3.vazia())
+                {
+                    aux = f3.retirar().getNo();
+                    for(int i=0;i<26;i++)
+                        if(aux.getlNo(i)!=null)
+                            f1.inserir(aux.getlNo(i));
+                }
+            }
+
+            while(!f2.vazia())
+            {
+                aux = f2.retirar().getNo();
+                if(aux.getPalavra()!=null)
+                    System.out.println("palavra: "+ aux.getPalavra());
+            }
+        }
+    }
 }
