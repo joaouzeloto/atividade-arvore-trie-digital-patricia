@@ -20,6 +20,7 @@ public class main {
         arv.inserir("elefante");
         arv.inserir("baleia");
         arv.inserir("baleia azul");
+        arv.inserir("solar");
         arv.exibir();
     }
 }

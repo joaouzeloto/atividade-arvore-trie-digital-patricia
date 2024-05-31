@@ -74,7 +74,7 @@ public class Tree
                                 {
                                     pai = aux;
                                     i = 0;
-                                    while (aux.getlChar(i) < 26 && aux.getlChar(i) == '.')
+                                    while (i < 26 && aux.getlChar(i) == '.')
                                         i++;
                                     n = i;
                                 }
@@ -128,6 +128,29 @@ public class Tree
     public void exibir()
     {
         exibir(raiz);
+    }
+
+    public void mostrarInformacoes()
+    {
+        No aux = raiz;
+        FilaNo f1 = new FilaNo(), f2 = new FilaNo(),f3 = new FilaNo();
+        f1.inserir(aux);
+        while (!f1.vazia())
+        {
+            while (!f1.vazia())
+            {
+                aux = f1.retirar().getNo();
+                f2.inserir(aux);
+                f3.inserir(aux);
+            }
+            while (!f3.vazia())
+            {
+                aux = f3.retirar().getNo();
+                for(int i=0;i<26;i++)
+                    if(aux.getlNo(i)!=null)
+                        f2.inserir(aux.getlNo(i));
+            }
+        }
     }
 
 }
