@@ -1,7 +1,7 @@
 import java.lang.*;
 public class Tree
 {
-    public No raiz;
+    private No raiz;
 
     public Tree(){raiz=null;}
 
